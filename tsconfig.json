@@ -1,0 +1,20 @@
+{
+    "compilerOptions": {
+      "target": "ES5",
+      "lib": ["dom", "dom.iterable", "esnext","ES2015"],
+      "allowJs": true,
+      "allowSyntheticDefaultImports": true,
+      "skipLibCheck": true,
+      "esModuleInterop": true,
+      "strict": true,
+      "forceConsistentCasingInFileNames": true,
+      "moduleResolution": "node",
+      "resolveJsonModule": true,
+      "isolatedModules": true,
+      "noEmit": true,
+      "jsx": "react",
+      
+    },
+    "include": ["src", "@types/custom.d.ts"],
+    "files":["./@types/images.d.ts"]
+  }
