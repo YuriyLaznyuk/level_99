@@ -5,7 +5,8 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 import ESLintPlugin from 'eslint-webpack-plugin';
-import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const Dotenv = require('dotenv-webpack');
 
 interface Config extends Configuration {
 	devServer?: WebpackDS;
@@ -15,7 +16,7 @@ const config: Config = {
 	// mode: "development",
 	entry: './src/index.tsx',
 	output: {
-		path: path.resolve(__dirname, 'build'),
+		path: path.resolve(__dirname, 'dist'),
 		// filename: "[name].[contenthash].js",
 		filename: 'index.bundle.js',
 		publicPath: '/',
@@ -79,6 +80,7 @@ const config: Config = {
 		}),
 		// new CleanWebpackPlugin(),
 		new MiniCssExtractPlugin(),
+		new Dotenv(),
 	],
 
 	devtool: 'inline-source-map',

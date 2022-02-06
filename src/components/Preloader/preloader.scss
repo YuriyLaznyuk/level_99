@@ -1,0 +1,26 @@
+
+
+  .preloader{
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 3px dashed green;
+    margin: 0 0 0 30px;
+    animation: rotate-logo 0.8s infinite linear ;
+
+  }
+
+  @keyframes rotate-logo {
+    0%{
+      transform: rotate(0deg) ;
+    }
+
+    50%{
+      transform: rotate(180deg) scale(1.2);
+    }
+
+    100%{
+      transform: rotate(360deg);
+    }
+  }
+
