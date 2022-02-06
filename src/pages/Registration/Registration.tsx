@@ -13,6 +13,9 @@ const Registration = () => {
 	const [user, setUser] = useState<IUser>({name: '', email: '', password: ''});
 	const {name, email, password} = user;
 	const navigate = useNavigate();
+	const validName = /^\d{2,}$/.test(name);
+	const validPassword = /^\d{3,}$/.test(password);
+	const validEmail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g.test(email);
 
 	return (
 		<div>
@@ -21,16 +24,16 @@ const Registration = () => {
 			</Typography>
 
 			{loading && (
-				<Typography
-					variant='h5'
+				<Box
+					component='div'
 					sx={{
 						display: 'flex',
 						justifyContent: 'center',
 						textAlign: 'center',
 						mt: 3,
 					}}>
-					...Loading <Preloader />
-				</Typography>
+					<Preloader />
+				</Box>
 			)}
 			<Box
 				sx={{
@@ -45,6 +48,8 @@ const Registration = () => {
 						onChange={(e) => setUser({...user, name: e.target.value})}
 						placeholder='name'
 						value={name}
+						error={!validName && name.length > 0}
+						label={!validName && name.length > 0 ? 'minimum 2' : ''}
 					/>
 				</Box>
 				<Box sx={{my: 2}}>
@@ -52,6 +57,8 @@ const Registration = () => {
 						onChange={(e) => setUser({...user, email: e.target.value})}
 						placeholder='email'
 						value={email}
+						error={!validEmail && email.length > 0}
+						label={!validEmail && email.length > 0 ? 'invalid email' : ''}
 					/>
 				</Box>
 				<Box>
@@ -60,6 +67,8 @@ const Registration = () => {
 						placeholder='password'
 						type='password'
 						value={password}
+						error={!validPassword && password.length > 0}
+						label={!validPassword && password.length > 0 ? 'minimum 3' : ''}
 					/>
 				</Box>
 				<Box sx={{mt: 2}}>

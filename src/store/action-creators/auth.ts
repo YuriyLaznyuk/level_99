@@ -1,14 +1,17 @@
 import {Dispatch} from 'redux';
 import {AuthAction, AuthActionType, IUser} from '../../types/auth';
+const uniqid = require('uniqid');
 
 const host = window.location.origin;
 const _host = `http://localhost:7654`;
 const url = host === _host ? host : _host;
 
-export const logOutUser = () => (dispatch: Dispatch<AuthAction>) => {
-	localStorage.removeItem('token');
-	dispatch({type: AuthActionType.LOGOUT_USER});
-};
+export const logOutUser =
+	(navigate: (st: string) => void) => (dispatch: Dispatch<AuthAction>) => {
+		localStorage.removeItem('token');
+		dispatch({type: AuthActionType.LOGOUT_USER});
+		navigate('/');
+	};
 
 export const createUser =
 	(user: IUser, navigate: (st: string) => void) =>
@@ -91,8 +94,10 @@ export const tokenAuth = () => async (dispatch: Dispatch<AuthAction>) => {
 };
 
 export const getDraw =
-	(canvasRef: HTMLCanvasElement | any) => (dispatch: Dispatch<AuthAction>) => {
+	(canvasRef: CanvasRenderingContext2D | any) =>
+	(dispatch: Dispatch<AuthAction>) => {
 		dispatch({type: AuthActionType.LOADING_USER, payload: true});
+		dispatch({type: AuthActionType.CREATE_LIST, payload: []});
 
 		setTimeout(() => {
 			const canvas = canvasRef.current;
@@ -136,5 +141,22 @@ export const getDraw =
 			ctx.fillText('500', 505, height - 10);
 			ctx.fillText('600', 605, height - 10);
 			dispatch({type: AuthActionType.LOADING_USER, payload: false});
+			dispatch({type: AuthActionType.LOADING_LIST, payload: true});
 		}, 3000);
 	};
+
+export const getList = () => (dispatch: Dispatch<AuthAction>) => {
+	setTimeout(() => {
+		const list = [];
+		for (let i = 0; i < 1000; i++) {
+			const name = Math.random().toString(36).substring(2, 7);
+			const status = Math.floor(Math.random() * 10);
+			const post = Math.random().toString(36).substring(2, 10);
+			const _age = Math.floor(Math.random() * 100);
+			const age = _age === 0 ? 1 : _age;
+			list.push({name, status, post, age, id: uniqid()});
+		}
+		dispatch({type: AuthActionType.CREATE_LIST, payload: list});
+		dispatch({type: AuthActionType.LOADING_LIST, payload: false});
+	}, 3000);
+};
