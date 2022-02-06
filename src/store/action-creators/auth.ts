@@ -2,9 +2,10 @@ import {Dispatch} from 'redux';
 import {AuthAction, AuthActionType, IUser} from '../../types/auth';
 const uniqid = require('uniqid');
 
-const host = window.location.origin;
-const _host = `http://localhost:7654`;
-const url = host === _host ? host : _host;
+const url = window.location.origin;
+// const host = window.location.origin;
+// const _host = `http://localhost:7654`;
+// const url = host === _host ? host : _host;
 
 export const logOutUser =
 	(navigate: (st: string) => void) => (dispatch: Dispatch<AuthAction>) => {

@@ -12,7 +12,7 @@ const Authorization = () => {
 	const {loginUser} = useAction();
 	const {loading} = useSelector((state: RootState) => state.auth);
 	const navigate = useNavigate();
-	const validPassword = /^\d{3,}$/.test(password);
+	const validPassword = /^\w{3,}$/.test(password);
 	const validEmail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g.test(email);
 
 	return (
