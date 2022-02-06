@@ -13,8 +13,8 @@ const Registration = () => {
 	const [user, setUser] = useState<IUser>({name: '', email: '', password: ''});
 	const {name, email, password} = user;
 	const navigate = useNavigate();
-	const validName = /^\d{2,}$/.test(name);
-	const validPassword = /^\d{3,}$/.test(password);
+	const validName = /^\w{2,}$/.test(name);
+	const validPassword = /^\w{3,}$/.test(password);
 	const validEmail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g.test(email);
 
 	return (
