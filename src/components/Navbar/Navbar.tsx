@@ -9,7 +9,7 @@ import {
 	Toolbar,
 	Typography,
 } from '@mui/material';
-import {Link} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import MenuIcon from '@mui/icons-material/Menu';
 
 import './navbar.scss';
@@ -25,6 +25,7 @@ const Navbar = () => {
 	const open = Boolean(anchorEl);
 	const {name, isAuth} = useSelector((state: RootState) => state.auth);
 	const {logOutUser} = useAction();
+	const navigate = useNavigate();
 	return (
 		<div className='navbar'>
 			<AppBar position='static' color='default'>
@@ -93,7 +94,7 @@ const Navbar = () => {
 								}}>
 								{isAuth && (
 									<Button
-										onClick={logOutUser}
+										onClick={() => logOutUser(navigate)}
 										variant='contained'
 										color='warning'
 										sx={{mr: 2}}>

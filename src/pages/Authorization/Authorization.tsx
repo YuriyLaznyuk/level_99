@@ -12,6 +12,8 @@ const Authorization = () => {
 	const {loginUser} = useAction();
 	const {loading} = useSelector((state: RootState) => state.auth);
 	const navigate = useNavigate();
+	const validPassword = /^\d{3,}$/.test(password);
+	const validEmail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g.test(email);
 
 	return (
 		<div>
@@ -20,16 +22,16 @@ const Authorization = () => {
 			</Typography>
 
 			{loading && (
-				<Typography
-					variant='h5'
+				<Box
+					component='div'
 					sx={{
 						display: 'flex',
 						justifyContent: 'center',
 						textAlign: 'center',
 						mt: 3,
 					}}>
-					...Loading <Preloader />
-				</Typography>
+					<Preloader />
+				</Box>
 			)}
 			<Box
 				sx={{
@@ -44,6 +46,8 @@ const Authorization = () => {
 						onChange={(e) => setUser({...user, email: e.target.value})}
 						placeholder='email'
 						value={email}
+						error={!validEmail && email.length > 0}
+						label={!validEmail && email.length > 0 ? 'invalid email' : ''}
 					/>
 				</Box>
 				<Box>
@@ -52,6 +56,8 @@ const Authorization = () => {
 						placeholder='password'
 						type='password'
 						value={password}
+						error={!validPassword && password.length > 0}
+						label={!validPassword && password.length > 0 ? 'minimum 3' : ''}
 					/>
 				</Box>
 				<Box sx={{mt: 2}}>
